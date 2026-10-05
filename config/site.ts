@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "OxCodx",
   description: "Software development & services company.",
-  email: "hello@oxcodx.com",
+  email: "official.oxcodx@gmail.com",
   nav: [
     { label: "Services", href: "/services" },
     { label: "Technologies", href: "/technologies" },
