@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { TechLogo } from "@/components/ui/tech-logo";
 import { getTech, techColor } from "@/data/tech-stack";
 import { EASE } from "@/components/motion/reveal";
+import Image from "next/image";
 
 const RINGS = [
   { radius: 120, duration: 45, reverse: false, ids: ["nextjs", "react", "typescript", "nodejs"] },
@@ -98,8 +99,8 @@ export function OrbitScene() {
               transition={{ duration: 3.2, repeat: Infinity, ease: "easeOut", delay: i * 1.6 }}
             />
           ))}
-          <div className="relative flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-brand-bright to-brand-deep text-3xl font-bold text-white shadow-[0_20px_50px_-10px_rgba(37,99,235,0.6)]">
-            O
+          <div className="relative flex h-20 w-20 items-center justify-center rounded-3xl bg-white text-3xl font-bold text-white shadow-[0_20px_50px_-10px_rgba(37,99,235,0.6)]">
+            <Image src="/oxcodx-logo.png" alt="OxCodx Logo" width={28} height={28}/>
           </div>
         </div>
       </div>
