@@ -61,7 +61,7 @@ const RECIPES: Recipe[] = [
 /* ---------- connected logo flow ---------- */
 function StackFlow({ layers, active }: { layers: Recipe["layers"]; active: boolean }) {
   return (
-    <div className="flex items-start">
+    <div className="flex flex-col sm:flex-row sm:items-start">
       {layers.map((layer, i) => {
         const tech = getTech(layer.techId);
         return (
@@ -71,12 +71,12 @@ function StackFlow({ layers, active }: { layers: Recipe["layers"]; active: boole
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, ease: EASE, delay: i * 0.14 }}
-              className="group flex w-[72px] shrink-0 flex-col items-center text-center sm:w-20"
+              className="group flex items-center gap-4 sm:w-20 sm:shrink-0 sm:flex-col sm:gap-0 sm:text-center"
               style={{ "--c": techColor(tech) } as React.CSSProperties}
             >
               <div
                 className={cn(
-                  "flex h-14 w-14 items-center justify-center rounded-2xl border bg-white transition-all duration-500 group-hover:scale-110",
+                  "flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border bg-white transition-all duration-500 group-hover:scale-110",
                   active
                     ? "border-brand/30 shadow-[0_10px_30px_-8px_rgba(37,99,235,0.35)]"
                     : "border-border shadow-sm"
@@ -90,20 +90,24 @@ function StackFlow({ layers, active }: { layers: Recipe["layers"]; active: boole
                   )}
                 />
               </div>
-              <span className="mt-3 text-xs font-medium">{tech.name}</span>
-              <span className="mt-0.5 font-mono text-[9px] uppercase tracking-wider text-muted">
-                {layer.label}
-              </span>
+
+              {/* text: beside the logo on mobile, below it from sm up */}
+              <div className="flex min-w-0 flex-col sm:contents">
+                <span className="text-sm font-medium sm:mt-3 sm:text-xs">{tech.name}</span>
+                <span className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-muted sm:text-[9px]">
+                  {layer.label}
+                </span>
+              </div>
             </motion.div>
 
             {i < layers.length - 1 && (
               <motion.div
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6, ease: EASE, delay: i * 0.14 + 0.12 }}
-                style={{ transformOrigin: "left" }}
-                className="relative mt-7 h-px min-w-4 flex-1 overflow-hidden"
+                style={{ transformOrigin: "left top" }}
+                className="relative my-1.5 ml-[27px] h-6 w-px overflow-hidden sm:my-0 sm:ml-0 sm:mt-7 sm:h-px sm:w-auto sm:min-w-4 sm:flex-1"
               >
                 <span className="absolute inset-0 bg-border" />
                 <span
@@ -112,7 +116,7 @@ function StackFlow({ layers, active }: { layers: Recipe["layers"]; active: boole
                     active ? "opacity-100" : "opacity-0"
                   )}
                 />
-                <span className="pulse-x absolute inset-0" />
+                <span className="pulse-x absolute inset-0 hidden sm:block" />
               </motion.div>
             )}
           </Fragment>
@@ -145,7 +149,7 @@ function RecipeCard({
     <div
       ref={ref}
       className={cn(
-        "flex flex-col justify-center rounded-3xl border bg-white p-6 transition-all duration-500 sm:p-8 lg:min-h-[360px]",
+        "flex flex-col justify-center rounded-3xl border bg-white p-5 transition-all duration-500 sm:p-8 lg:min-h-[360px]",
         active
           ? "border-brand/30 shadow-[0_20px_60px_-20px_rgba(37,99,235,0.25)]"
           : "border-border lg:opacity-60"
@@ -183,7 +187,7 @@ export function StackRecipes() {
       <Container>
         <div className="grid gap-12 lg:grid-cols-[1fr_1.25fr] lg:gap-20">
           {/* left: sticky panel */}
-          <div className="lg:sticky lg:top-32 lg:self-start">
+          <div className="min-w-0 lg:sticky lg:top-32 lg:self-start">
             <p className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-brand">
               Stack recipes
             </p>
@@ -241,7 +245,7 @@ export function StackRecipes() {
           </div>
 
           {/* right: scrolling recipe cards */}
-          <div className="space-y-8 lg:space-y-10">
+          <div className="min-w-0 space-y-8 lg:space-y-10">
             {RECIPES.map((recipe, i) => (
               <RecipeCard
                 key={recipe.id}
