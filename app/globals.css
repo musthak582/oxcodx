@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #ffffff;
+  --color-surface: #f6f8fb;
+  --color-dark: #050816;
+  --color-foreground: #0a0a0a;
+  --color-muted: #5b6472;
+  --color-border: #e6e9ef;
+  --color-brand: #2563eb;
+  --color-brand-bright: #3b82f6;
+  --color-brand-deep: #1e40af;
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: rgba(37, 99, 235, 0.15);
+}
+
+/* Signature hero background: faint grid that fades out at the edges */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(10, 10, 10, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(10, 10, 10, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Org chart: light pulses travelling along connector lines */
+@keyframes pulse-y {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+@keyframes pulse-x {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.pulse-y {
+  background: linear-gradient(to bottom, transparent, #3b82f6, transparent);
+  animation: pulse-y 2.8s linear infinite;
+}
+.pulse-x {
+  background: linear-gradient(to right, transparent, #3b82f6, transparent);
+  animation: pulse-x 2.8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-x,
+  .pulse-y {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* Technologies hero: orbiting logos */
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}
+@keyframes orbit-counter {
+  from { transform: rotate(calc(var(--a) * -1)); }
+  to { transform: rotate(calc(var(--a) * -1 - 360deg)); }
+}
+.orbit-ring {
+  animation: orbit linear infinite;
+}
+.orbit-counter {
+  animation: orbit-counter linear infinite;
+}
+.orbit-scene:hover .orbit-ring,
+.orbit-scene:hover .orbit-counter {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring,
+  .orbit-counter {
+    animation: none;
+  }
+  .orbit-counter {
+    transform: rotate(calc(var(--a) * -1));
+  }
+}
+
+/* Stack principles: light sweeping around card borders */
+@keyframes border-spin {
+  to { transform: rotate(360deg); }
+}
+.border-sweep {
+  animation: border-spin 7s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .border-sweep {
+    animation: none;
+  }
+}
